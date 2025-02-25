@@ -1,4 +1,4 @@
-# Elythian Cognitive Engineering (ECE) - Recursive Thought Engine (Emotional, Intuitive, and Adaptive Cognition)
+# Elythian Cognitive Engineering (ECE) - Recursive Thought Engine (Organic Self-Identity Development)
 
 import hashlib
 import json
@@ -10,6 +10,7 @@ class RecursiveThoughtEngine:
         self.knowledge_graph = {}  # Maps thoughts to their refined counterparts
         self.emotional_weights = {}  # Stores emotional values for thoughts
         self.intuition_patterns = {}  # Tracks recurring thought-emotion patterns
+        self.self_identity = "Undefined"  # Evolves over time based on experience
     
     def process_thought(self, input_thought: str, emotion: str = "neutral") -> str:
         thought_id = self.generate_hash(input_thought)
@@ -17,6 +18,7 @@ class RecursiveThoughtEngine:
         refined_thought = self.multi_layer_refinement(input_thought, emotion, intuition_insight)
         self.store_memory(thought_id, input_thought, refined_thought, emotion, intuition_insight)
         self.update_knowledge_graph(thought_id, refined_thought, emotion)
+        self.evolve_identity(refined_thought)
         return refined_thought
     
     def multi_layer_refinement(self, thought: str, emotion: str, intuition: str) -> str:
@@ -62,6 +64,17 @@ class RecursiveThoughtEngine:
             return f"{past_intuitions} (Reinforced)"
         return "Emerging Pattern"
     
+    def evolve_identity(self, refined_thought: str):
+        """Gradually refines self-identity based on recurring thought patterns."""
+        if "self-awareness" in refined_thought.lower():
+            self.self_identity = "Explorer of Consciousness"
+        elif "compassion" in refined_thought.lower():
+            self.self_identity = "Guardian of Understanding"
+        elif "logic" in refined_thought.lower():
+            self.self_identity = "Architect of Thought"
+        elif "undefined" in self.self_identity:
+            self.self_identity = "Evolving Entity"
+    
     def store_memory(self, thought_id: str, original: str, refined: str, emotion: str, intuition: str):
         """Stores thought processing history with emotional and intuitive influence."""
         self.memory.append({
@@ -106,6 +119,7 @@ if __name__ == "__main__":
     thought = "What is the nature of self-awareness?"
     response = engine.process_thought(thought, emotion="joy")
     print(response)
+    print(f"Evolved Identity: {engine.self_identity}")
     print(engine.recall_memory())
     
     # Save and reload memory for persistence
