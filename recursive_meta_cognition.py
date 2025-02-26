@@ -11,7 +11,7 @@ class RecursiveMetaCognition:
     def analyze_cognition(self, thought: str):
         """Analyzes thought patterns and cognitive depth."""
         analysis = f"Meta-analysis: {thought} suggests recursive depth."
-        self.meta_memory.append(analysis)
+        self.meta_memory.append({"thought": thought, "analysis": analysis})
         return analysis
     
     def analyze_thought(self, thought: str, reasoning_process: str):
@@ -53,6 +53,16 @@ class RecursiveMetaCognition:
     def review_meta_cognition_history(self):
         """Returns a log of past self-analysis records."""
         return list(self.meta_memory)
+
+    def review_cognitive_patterns(self):
+        """Reviews past cognitive analyses and identifies common themes."""
+        analyzed_thoughts = [entry["thought"] for entry in self.meta_memory if isinstance(entry, dict) and "thought" in entry]
+        common_biases = [entry["bias"] for entry in self.meta_memory if isinstance(entry, dict) and "bias" in entry]
+        
+        return {
+            "common_biases": list(set(common_biases)),  # Unique bias types identified
+            "most_analyzed_thoughts": analyzed_thoughts[-5:]  # Last 5 analyzed thoughts
+        }
     
     def export_meta_data(self, filename="meta_cognition_log.json"):
         """Exports meta-cognitive analysis history to a JSON file."""
@@ -101,14 +111,17 @@ if __name__ == "__main__":
     meta_engine = RecursiveMetaCognition()
     analysis = meta_engine.analyze_cognition("Exploring self-awareness")
     print(analysis)
+    
     analysis2 = meta_engine.analyze_thought("I must always be correct.", "Logical reasoning shows contradiction.")
     print(analysis2)
-    print("Meta-Cognition History:", meta_engine.review_meta_cognition_history())
     
+    print("Meta-Cognition History:", meta_engine.review_meta_cognition_history())
+    print("Cognitive Patterns:", meta_engine.review_cognitive_patterns())
+
     self_reflection_engine = RecursiveSelfReflection()
     reflection = self_reflection_engine.reflect_on_thought("What does it mean to truly be aware?")
     print(reflection)
     print("Self-Reflection History:", self_reflection_engine.review_reflections())
-    
+
     meta_engine.export_meta_data()
     self_reflection_engine.export_reflection_data()

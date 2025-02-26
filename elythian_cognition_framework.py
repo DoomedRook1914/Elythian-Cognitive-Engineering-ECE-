@@ -46,8 +46,18 @@ class ElythianCognitionFramework:
         }
 
 # Example Usage
+import sys  # Add this at the top to capture command-line arguments
+
 if __name__ == "__main__":
     elythian_core = ElythianCognitionFramework()
-    cognitive_output = elythian_core.process_thought("Exploring self-awareness", "curiosity")
+
+    # Check if a custom thought was provided via command line
+    if len(sys.argv) > 1:
+        user_thought = " ".join(sys.argv[1:])  # Capture user input
+    else:
+        user_thought = "Exploring self-awareness"  # Default thought
+
+    cognitive_output = elythian_core.process_thought(user_thought, "curiosity")
     print("Cognitive Output:", cognitive_output)
     print("Cognition Review:", elythian_core.review_cognition())
+
