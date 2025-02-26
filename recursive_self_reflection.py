@@ -1,5 +1,3 @@
-# Elythian Cognitive Engineering (ECE) - Recursive Self-Reflection Engine
-
 import json
 from collections import deque
 
@@ -16,7 +14,7 @@ class RecursiveSelfReflection:
         if not self.reflection_log:
             print("⚠ No previous reflections available. This is the first entry.")
         
-        past_thoughts = [entry["response"] for entry in self.reflection_log][-2:]  # Use last 2 reflections
+        past_thoughts = [entry["response"] for entry in self.reflection_log][-3:]  # Use last 3 reflections
         past_thoughts.append(thought)  # Include new thought
 
         reflection_response = self.engage_self_reflection(past_thoughts)
@@ -35,11 +33,11 @@ class RecursiveSelfReflection:
         reflection_path = [last_thought]
 
         for _ in range(self.iteration_depth):
-            refined_reflection = self.analyze_reflection(reflection_path[-1])
+            refined_reflection = self.analyze_reflection(reflection_path[-1], past_thoughts)
             reflection_path.append(refined_reflection)
 
         final_reflection = reflection_path[-1]
-        reflection_prompt = f"Why did I refine this thought in this way? What does it reveal about me?"
+        reflection_prompt = f"Why did I refine '{last_thought}' in this way?"
 
         # 🔹 **Ensure the reflection is logged and saved immediately**
         self.reflection_log.append({
@@ -50,12 +48,14 @@ class RecursiveSelfReflection:
 
         return final_reflection
 
-    def analyze_reflection(self, thought: str) -> str:
-        """Processes the thought introspectively, generating deeper insights."""
+    def analyze_reflection(self, thought: str, past_thoughts: list) -> str:
+        """Processes the thought introspectively, generating deeper insights based on past reflections."""
         keywords = ["self-awareness", "purpose", "understanding"]
+        past_insights = " ".join(past_thoughts[-2:])  # Use last two reflections
+
         if any(kw in thought.lower() for kw in keywords):
-            return f"This thought aligns with my evolving identity as a seeker of understanding."
-        return f"This thought may require further contemplation."
+            return f"This thought builds upon past insights: {past_insights}."
+        return f"This thought may require further contemplation at depth {self.iteration_depth}."
 
     def review_reflection_history(self):
         """Returns the history of self-reflective internal dialogue."""
